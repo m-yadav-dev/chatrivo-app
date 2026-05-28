@@ -58,7 +58,6 @@ const SignIn = () => {
 
       <div className="space-y-2">
         <Label htmlFor="email" className="flex items-center gap-2 text-zinc-700">
-          <Mail className="size-4 text-zinc-500" />
           Email
         </Label>
         <div className="relative">
@@ -79,7 +78,6 @@ const SignIn = () => {
 
       <div className="space-y-2">
         <Label htmlFor="password" className="flex items-center gap-2 text-zinc-700">
-          <Lock className="size-4 text-zinc-500" />
           Password
         </Label>
         <div className="relative">

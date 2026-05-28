@@ -4,7 +4,7 @@ import { generateToken } from "../library/utils.js";
 import { ENV_VARS } from "../library/env.js";
 import uploadService from "../services/upload.service.js";
 
-const signUp = async (request, response) => {
+const signUp = async (request, response, next) => {
   try {
     const { fullName, email, password } = request.body;
     if (!fullName || !email || !password) {
@@ -51,11 +51,11 @@ const signUp = async (request, response) => {
 
     return response.status(400).json({ message: "Invalid user data" });
   } catch (error) {
-    response.status(500).json({ message: error.message });
+    next(error);
   }
 };
 
-const login = async (request, response) => {
+const login = async (request, response, next) => {
   try {
     const { email, password } = request.body;
     if (!email || !password) {
@@ -83,12 +83,11 @@ const login = async (request, response) => {
       profilePic: user.profilePic,
     });
   } catch (error) {
-    response.status(500).json({ message: error.message });
-    console.error(error);
+    next(error);
   }
 };
 
-const logout = async (_, response) => {
+const logout = async (_, response, next) => {
   try {
     response.clearCookie("token", {
       httpOnly: true,
@@ -98,11 +97,11 @@ const logout = async (_, response) => {
     });
     response.status(200).json({ message: "User logged out successfully" });
   } catch (error) {
-    response.status(500).json({ message: error.message });
+    next(error);
   }
 };
 
-const updateProfile = async (request, response) => {
+const updateProfile = async (request, response, next) => {
   try {
     const { profilePic, about, phone, fullName } = request.body;
     const userId = request.user._id;
@@ -141,28 +140,24 @@ const updateProfile = async (request, response) => {
       updatedUser,
     });
   } catch (error) {
-    console.error(`Error in update profile: ${error.message}`);
-    response.status(500).json({ message: error.message });
+    next(error);
   }
 };
 
-const checkAuth = async (request, response) => {
+const checkAuth = async (request, response, next) => {
   try {
     response.status(200).json(request.user);
   } catch (error) {
-    console.log(`Error in checkAuth controller: ${error.message}`);
-    response.status(500).json({ message: "Internal Server Error" });
+    next(error);
   }
 };
 
 // implement guest login functionality
 
-const guestLogin = async (_, response) => {
+const guestLogin = async (_, response, next) => {
   try {
     const randomNum = Math.floor(Math.random() * 9000);
     const guestName = `Guest ${randomNum}`;
-
-
 
     const randomEmailUser = `guest_${Date.now()}@guest.com`;
     const password = `guest_${Date.now()}`;
@@ -198,8 +193,7 @@ const guestLogin = async (_, response) => {
       expireAt: guestUser.expireAt,
     });
   } catch (error) {
-    console.error(`Error during guest login: ${error.message}`);
-    response.status(500).json({ message: "Internal Server Error" });
+    next(error);
   }
 };
 

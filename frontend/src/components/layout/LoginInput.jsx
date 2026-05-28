@@ -2,107 +2,186 @@ import { useAuthStore } from "@/store/useAuthStore";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
-import { toast } from "sonner";
 import { useState } from "react";
-import { LogIn, Mail, Lock, UserRoundCheck } from "lucide-react";
+import {
+  Eye,
+  EyeOff,
+  LoaderCircle,
+  LogIn,
+  Lock,
+  Mail,
+} from "lucide-react";
+import { Link } from "react-router-dom";
 
 const LoginInput = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  const { logIn, isUserLoggedIn, guestLogin, isGuestLoggingIn } =
-    useAuthStore();
+  const [errors, setErrors] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
+  // const [isResetDialogOpen, setIsResetDialogOpen] = useState(false);
+  const { logIn, isUserLoggedIn } = useAuthStore();
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const validateForm = () => {
+    const nextErrors = {};
+
+    if (!formData.email.trim()) {
+      nextErrors.email = "Email is required.";
+    } else if (!emailRegex.test(formData.email)) {
+      nextErrors.email = "Enter a valid email address.";
+    }
+
+    if (!formData.password.trim()) {
+      nextErrors.password = "Password is required.";
+    }
+
+    setErrors(nextErrors);
+    return Object.keys(nextErrors).length === 0;
+  };
+
   const onSubmitLogInData = async (event) => {
     event.preventDefault();
 
-    const isValid = formData.email && formData.password;
-
-    if (!isValid) {
-      toast.error("Please fill in all fields.");
+    if (!validateForm()) {
       return;
     }
 
     await logIn(formData);
   };
 
-  const onGuestLogin = async () => {
-    await guestLogin();
-  };
-
   return (
-    <form onSubmit={onSubmitLogInData} className="w-full space-y-3 sm:space-y-4">
-      <div className="space-y-2">
-        <Label
-          htmlFor="email"
-          className="flex items-center gap-2 text-zinc-700"
-        >
-          <Mail className="size-4 text-zinc-500" />
-          Email
-        </Label>
-        <div className="relative">
-          <Mail className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-zinc-400" />
-          <Input
-            placeholder="Enter your email..."
-            className="h-11 border-zinc-200 bg-zinc-50/40 pl-10"
-            type="email"
-            onChange={(event) =>
-              setFormData((prev) => ({ ...prev, email: event.target.value }))
-            }
-            name="email"
-            value={formData.email}
-            id="email"
-          />
-        </div>
-      </div>
+    <>
+      <form onSubmit={onSubmitLogInData} className="w-full space-y-5">
+        <header className="space-y-1">
+          <h1 className="text-2xl font-semibold tracking-tight text-slate-900 sm:text-[30px]">
+            Welcome back
+          </h1>
+          <p className="text-sm text-slate-600">
+            Sign in to continue to your workspace.
+          </p>
+        </header>
 
-      <div className="space-y-2">
-        <Label
-          htmlFor="password"
-          className="flex items-center gap-2 text-zinc-700"
-        >
-          <Lock className="size-4 text-zinc-500" />
-          Password
-        </Label>
-        <div className="relative">
-          <Lock className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-zinc-400" />
-          <Input
-            placeholder="Enter your password..."
-            className="h-11 border-zinc-200 bg-zinc-50/40 pl-10"
-            type="password"
-            name="password"
-            onChange={(event) =>
-              setFormData((prev) => ({ ...prev, password: event.target.value }))
-            }
-            value={formData.password}
-            id="password"
-          />
-        </div>
-      </div>
+        <div className="space-y-4">
+          <div className="space-y-1.5">
+            <Label htmlFor="email" className="text-sm font-medium text-slate-700">
+              Email address
+            </Label>
+            <div className="relative">
+              <Mail className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-slate-400" />
+              <Input
+                placeholder="you@company.com"
+                className="h-11 rounded-xl border-slate-300 bg-slate-50/50 pl-10 text-sm shadow-none transition focus-visible:border-indigo-400 focus-visible:ring-2 focus-visible:ring-indigo-100"
+                type="email"
+                onChange={(event) => {
+                  setFormData((prev) => ({ ...prev, email: event.target.value }));
+                  if (errors.email) {
+                    setErrors((prev) => ({ ...prev, email: "" }));
+                  }
+                }}
+                name="email"
+                value={formData.email}
+                id="email"
+                autoComplete="email"
+                aria-invalid={Boolean(errors.email)}
+              />
+            </div>
+            {errors.email && (
+              <p className="text-xs text-rose-600" role="alert">
+                {errors.email}
+              </p>
+            )}
+          </div>
 
-      <div className="flex flex-col gap-2 pt-1 sm:flex-row sm:gap-3">
+          <div className="space-y-1.5">
+            <Label htmlFor="password" className="text-sm font-medium text-slate-700">
+              Password
+            </Label>
+            <div className="relative">
+              <Lock className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-slate-400" />
+              <Input
+                placeholder="Enter your password"
+                className="h-11 rounded-xl border-slate-300 bg-slate-50/50 pl-10 pr-10 text-sm shadow-none transition focus-visible:border-indigo-400 focus-visible:ring-2 focus-visible:ring-indigo-100"
+                type={showPassword ? "text" : "password"}
+                name="password"
+                onChange={(event) => {
+                  setFormData((prev) => ({ ...prev, password: event.target.value }));
+                  if (errors.password) {
+                    setErrors((prev) => ({ ...prev, password: "" }));
+                  }
+                }}
+                value={formData.password}
+                id="password"
+                autoComplete="current-password"
+                aria-invalid={Boolean(errors.password)}
+              />
+              <button
+                type="button"
+                aria-label={showPassword ? "Hide password" : "Show password"}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 transition hover:text-slate-600"
+                onClick={() => setShowPassword((prev) => !prev)}
+              >
+                {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+              </button>
+            </div>
+            {errors.password && (
+              <p className="text-xs text-rose-600" role="alert">
+                {errors.password}
+              </p>
+            )}
+          </div>
+
+          <div className="flex items-center justify-between gap-3 text-sm">
+            <label className="inline-flex items-center gap-2 text-slate-600">
+              <input
+                type="checkbox"
+                checked={rememberMe}
+                onChange={(event) => setRememberMe(event.target.checked)}
+                className="size-4 rounded border-slate-300 accent-indigo-600"
+              />
+              Remember me
+            </label>
+            <button
+              type="button"
+              className="font-medium text-indigo-600 transition hover:text-indigo-700"
+              // onClick={() => setIsResetDialogOpen(true)}
+            >
+              Forgot password?
+            </button>
+          </div>
+        </div>
+
         <Button
           type="submit"
-          className="h-10 flex-1 cursor-pointer text-sm sm:h-11"
+          className="h-11 w-full cursor-pointer rounded-xl bg-slate-900 text-sm font-medium text-white transition hover:bg-slate-800"
           disabled={isUserLoggedIn}
         >
-          <LogIn className="mr-2 size-4" />
-          {isUserLoggedIn ? "Logging..." : "Log In"}
+          {isUserLoggedIn ? (
+            <>
+              <LoaderCircle className="mr-2 size-4 animate-spin" />
+              Logging in...
+            </>
+          ) : (
+            <>
+              <LogIn className="mr-2 size-4" />
+              Log in
+            </>
+          )}
         </Button>
-        <Button
-          type="button"
-          variant="outline"
-          className="h-10 flex-1 cursor-pointer border-zinc-300 text-xs sm:h-11 sm:text-sm"
-          disabled={isGuestLoggingIn}
-          onClick={onGuestLogin}
-        >
-          {!isGuestLoggingIn && <UserRoundCheck className="mr-2 size-4" />}
-          <span className="hidden sm:inline">Continue as Guest</span>
-          <span className="sm:hidden">Guest</span>
-          {isGuestLoggingIn && "..."}
-        </Button>
-      </div>
-    </form>
+
+        <p className="text-center text-sm text-slate-600">
+          Don&apos;t have an account?{" "}
+          <Link to="/signup" className="font-semibold text-indigo-600 transition hover:text-indigo-700">
+            Create account
+          </Link>
+        </p>
+      </form>
+
+      
+    </>
   );
 };
 

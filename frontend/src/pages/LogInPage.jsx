@@ -1,25 +1,21 @@
 import LoginInput from "@/components/layout/LoginInput";
-import { ShieldCheck } from "lucide-react";
 
 const LogInPage = () => {
   return (
-    <div className="flex min-h-screen w-full items-center justify-center bg-[radial-gradient(circle_at_top,#f1f5f9_0%,#e2e8f0_45%,#cbd5e1_100%)] px-3 py-6 sm:px-4 sm:py-8 md:px-6">
-      <div className="w-full max-w-xs rounded-2xl border border-zinc-200/70 bg-white p-4 shadow-[0_16px_40px_-24px_rgba(15,23,42,0.45)] sm:max-w-sm sm:p-6 md:max-w-md md:p-8">
-        <div className="mb-4 flex items-start gap-2 sm:mb-6 sm:gap-3">
-          <div className="flex size-9 flex-shrink-0 items-center justify-center rounded-2xl border border-zinc-200 bg-zinc-50 text-zinc-700 shadow-sm sm:size-11">
-            <ShieldCheck className="size-4 sm:size-5" />
-          </div>
-          <div className="min-w-0 flex-1">
-            <h1 className="text-xl font-semibold tracking-tight text-zinc-900 sm:text-2xl">
-              Log In
-            </h1>
-            <p className="mt-0.5 text-xs font-medium text-zinc-600 sm:mt-1 sm:text-sm">
-              Enter your details to log in
-            </p>
-          </div>
+    <div className="flex min-h-screen w-full items-center justify-center bg-[#f5f7fb] px-4 py-8 sm:px-6 lg:px-8">
+      <section className="grid w-full max-w-5xl overflow-hidden rounded-xl border border-slate-200 bg-white shadow-[0_16px_34px_-26px_rgba(15,23,42,0.45)] md:grid-cols-[0.42fr_0.58fr]">
+        <div className="relative overflow-hidden  sm:px-8 sm:py-10 md:px-9 md:py-12">
+          <img
+            src="https://res.cloudinary.com/dyjo8b263/image/upload/v1779689972/Wavy_Tech-26_Single-08_oo70tz.jpg"
+            alt="Chatrivo"
+            className="h-full w-full "
+          />
         </div>
-        <LoginInput />
-      </div>
+
+        <div className="bg-white px-6 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12">
+          <LoginInput />
+        </div>
+      </section>
     </div>
   );
 };

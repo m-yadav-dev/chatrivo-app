@@ -23,14 +23,18 @@ const ChatContainer = () => {
   const [isTyping, setIsTyping] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   // const [, setFilesInput] = useState(null);
+  const [isRecording, setIsRecording] = useState(false);
+  
   const [selectedMediaFile, setSelectedMediaFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [messageType, setMessageType] = useState("text");
-  console.log("Media File State:", selectedMediaFile);
 
   const imageInputRef = useRef(null);
   const fileInputRef = useRef(null);
   const audioInputRef = useRef(null);
+  const mediaRecorderRef = useRef(null);
+  const audioChunksRef = useRef([]);
+
 
   const attachmentInputs = {
     image: imageInputRef,
@@ -149,6 +153,10 @@ const ChatContainer = () => {
               message={message}
               setMessage={setMessage}
               isTyping={isTyping}
+              isRecording={isRecording}
+              setIsRecording={setIsRecording}
+              mediaRecorderRef={mediaRecorderRef}
+              audioChunksRef={audioChunksRef}
               setIsDropdownOpen={setIsDropdownOpen}
               selectedMediaFile={selectedMediaFile}
               messageType={messageType}
