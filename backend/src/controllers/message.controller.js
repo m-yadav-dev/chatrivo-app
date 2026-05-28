@@ -3,7 +3,7 @@ import Message from "../models/message.model.js";
 import cloudinary from "../services/cloudinary.service.js";
 import { getReceiverSocketId, io } from "../library/socket.js";
 
-export const getUsers = async (request, response) => {
+export const getUsers = async (request, response, next) => {
   try {
     const loggedInUser = request.user?._id;
 
@@ -18,12 +18,11 @@ export const getUsers = async (request, response) => {
 
     response.status(200).json(users);
   } catch (error) {
-    console.log(`Error in getUsers controller: ${error.message}`);
-    response.status(500).json({ message: error.message });
+    next(error);
   }
 };
 
-export const getMessages = async (request, response) => {
+export const getMessages = async (request, response, next) => {
   try {
     const { id: userToChatId } = request.params;
     const myId = request.user._id;
@@ -36,30 +35,26 @@ export const getMessages = async (request, response) => {
     }).sort({ createdAt: 1 });
     response.status(200).json(messages);
   } catch (error) {
-    console.error(`Error in getMessages: ${error.message}`);
-    response.status(500).json({ message: error.message });
+    next(error);
   }
 };
 
-export const sendMessage = async (request, response) => {
+export const sendMessage = async (request, response, next) => {
   try {
     const { id: receiverId } = request.params;
     const senderId = request.user._id;
 
-    // find isUser guest User or not, 
+    // find isUser guest User or not,
 
     const senderUser = await User.findById(senderId).select("isGuest expireAt");
-    const receiverUser = await User.findById(receiverId).select("isGuest expireAt");
+    const receiverUser =
+      await User.findById(receiverId).select("isGuest expireAt");
 
     let messageExpireAt = null;
-
 
     if (senderUser?.isGuest || receiverUser?.isGuest) {
       messageExpireAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // Set message expiration time to 24 hours from now
     }
-
-
-
 
     const { text, messageType, media, fileName, duration } = request.body;
     const mediaFile = request.file; // From multer
@@ -138,14 +133,12 @@ export const sendMessage = async (request, response) => {
 
     return response.status(201).json(newMessage);
   } catch (error) {
-    console.error(`❌ Error in sendMessage API: ${error.message}`);
-
     if (error.http_code === 400 || error.message.includes("cloudinary")) {
       return response
         .status(400)
         .json({ error: "Media upload failed or file type unsupported." });
     }
 
-    return response.status(500).json({ message: error.message });
+    next(error);
   }
 };

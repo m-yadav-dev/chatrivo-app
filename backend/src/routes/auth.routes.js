@@ -9,14 +9,17 @@ import {
 } from "../controllers/auth.controller.js";
 import { protectedAuthRoute } from "../middlewares/arcjet.middleware.js";
 import { authRouteMiddleware } from "../middlewares/auth.middleware.js";
-const route = express.Router();
+import { errorHandler } from "../middlewares/errorHandler.middleware.js";
+const authRoute = express.Router();
 
-route.post("/guest-login", protectedAuthRoute, guestLogin);
+authRoute.post("/guest-login", protectedAuthRoute, guestLogin);
 
-route.post("/sign-up", protectedAuthRoute, signUp);
-route.post("/login", protectedAuthRoute, login);
-route.post("/logout", logout);
-route.put("/update-profile", authRouteMiddleware, updateProfile);
-route.get("/check", authRouteMiddleware, checkAuth);
+authRoute.post("/sign-up", protectedAuthRoute, signUp);
+authRoute.post("/login", protectedAuthRoute, login);
+authRoute.post("/logout", logout);
+authRoute.put("/update-profile", authRouteMiddleware, updateProfile);
+authRoute.get("/check", authRouteMiddleware, checkAuth);
 
-export default route;
+authRoute.use(errorHandler);
+
+export default authRoute;

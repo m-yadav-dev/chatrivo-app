@@ -12,6 +12,8 @@ export const useChatStore = create((set, get) => ({
   users: [],
   isUsersLoading: false,
 
+  isAudioTranscribing: false,
+
   setSelectedUser: (user) => set({ selectedUser: user }),
 
   // Fetch users for chat
@@ -77,7 +79,6 @@ export const useChatStore = create((set, get) => ({
     try {
       const formData = new FormData();
 
-
       if (messageData.text) {
         formData.append("text", messageData.text);
       }
@@ -117,6 +118,47 @@ export const useChatStore = create((set, get) => ({
       set({ isMessageSending: false });
     } finally {
       set({ isMessageSending: false });
+    }
+  },
+
+  //path: /api/messages/audio-to-text/:id  send audio message to transcribe and get text response from n8n workflow
+
+  transcribeAudioMessage: async (audioFile, receiverId) => {
+    //  Step 1: Loading state for audio transcription
+    set({ isAudioTranscribing: true });
+    try {
+      // Step 2: Create FormData and append the audio file
+      const formData = new FormData();
+      formData.append("audio", audioFile, "voice_message.webm"); // You can use the original file name or a default one
+
+      // Step 3: Send POST request to the backend API to transcribe audio
+
+      const response = await axiosInstance.post(
+        `messages/audio-to-text/${receiverId}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        },
+      );
+
+      console.log("Audio transcription successful, response:", response.data);
+
+      // push the transcribed message to messages state to show in UI immediately after transcription
+
+      set((state) => ({
+        messages: [...state.messages, response.data.data],
+      }));
+    } catch (error) {
+      console.error("Error transcribing audio message:", error);
+      console.log("Error details:", error.response?.data);
+      const errorMessage =
+        error.response?.data?.message ||
+        "An error occurred while transcribing the audio message.";
+      toast.error(errorMessage);
+    } finally {
+      set({ isAudioTranscribing: false });
     }
   },
 
