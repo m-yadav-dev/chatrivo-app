@@ -3,14 +3,7 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { useState } from "react";
-import {
-  Eye,
-  EyeOff,
-  LoaderCircle,
-  LogIn,
-  Lock,
-  Mail,
-} from "lucide-react";
+import { Eye, EyeOff, LoaderCircle, LogIn, Lock, Mail, User, LoaderCircleIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const LoginInput = () => {
@@ -22,7 +15,8 @@ const LoginInput = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   // const [isResetDialogOpen, setIsResetDialogOpen] = useState(false);
-  const { logIn, isUserLoggedIn } = useAuthStore();
+  const { logIn, isUserLoggedIn, guestLogin, isGuestLoggingIn } =
+    useAuthStore();
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -53,6 +47,7 @@ const LoginInput = () => {
     await logIn(formData);
   };
 
+
   return (
     <>
       <form onSubmit={onSubmitLogInData} className="w-full space-y-5">
@@ -67,17 +62,23 @@ const LoginInput = () => {
 
         <div className="space-y-4">
           <div className="space-y-1.5">
-            <Label htmlFor="email" className="text-sm font-medium text-slate-700">
+            <Label
+              htmlFor="email"
+              className="text-sm font-medium text-slate-700"
+            >
               Email address
             </Label>
             <div className="relative">
               <Mail className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-slate-400" />
               <Input
                 placeholder="you@company.com"
-                className="h-11 rounded-xl border-slate-300 bg-slate-50/50 pl-10 text-sm shadow-none transition focus-visible:border-indigo-400 focus-visible:ring-2 focus-visible:ring-indigo-100"
+                className="h-11 rounded-xl border-slate-300 bg-slate-50/50 pl-10 text-sm shadow-none transition focus-visible:border-indigo-300 focus-visible:ring-2 focus-visible:ring-indigo-100"
                 type="email"
                 onChange={(event) => {
-                  setFormData((prev) => ({ ...prev, email: event.target.value }));
+                  setFormData((prev) => ({
+                    ...prev,
+                    email: event.target.value,
+                  }));
                   if (errors.email) {
                     setErrors((prev) => ({ ...prev, email: "" }));
                   }
@@ -97,7 +98,10 @@ const LoginInput = () => {
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="password" className="text-sm font-medium text-slate-700">
+            <Label
+              htmlFor="password"
+              className="text-sm font-medium text-slate-700"
+            >
               Password
             </Label>
             <div className="relative">
@@ -108,7 +112,10 @@ const LoginInput = () => {
                 type={showPassword ? "text" : "password"}
                 name="password"
                 onChange={(event) => {
-                  setFormData((prev) => ({ ...prev, password: event.target.value }));
+                  setFormData((prev) => ({
+                    ...prev,
+                    password: event.target.value,
+                  }));
                   if (errors.password) {
                     setErrors((prev) => ({ ...prev, password: "" }));
                   }
@@ -124,7 +131,11 @@ const LoginInput = () => {
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 transition hover:text-slate-600"
                 onClick={() => setShowPassword((prev) => !prev)}
               >
-                {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+                {showPassword ? (
+                  <EyeOff className="size-4" />
+                ) : (
+                  <Eye className="size-4" />
+                )}
               </button>
             </div>
             {errors.password && (
@@ -172,15 +183,35 @@ const LoginInput = () => {
           )}
         </Button>
 
+        <hr className="border-slate-200 w-full max-w-[28rem] m-auto mb-4 h-px" />
+        {/* Guest Login Button */}
+        <Button
+          type="button"
+          className="h-11 w-full cursor-pointer rounded-xl bg-indigo-500 text-sm font-medium text-white transition hover:bg-indigo-700"
+          onClick={guestLogin}
+        >
+          {isGuestLoggingIn ? (
+            <>
+              <LoaderCircleIcon className="mr-2 size-4 animate-spin" />
+              Logging in as guest...
+            </>
+          ) : (
+            <>
+              <User className="mr-2 size-4" />
+              Guest Login
+            </>
+          )}
+        </Button>
         <p className="text-center text-sm text-slate-600">
           Don&apos;t have an account?{" "}
-          <Link to="/signup" className="font-semibold text-indigo-600 transition hover:text-indigo-700">
+          <Link
+            to="/signup"
+            className="font-semibold text-indigo-600 transition hover:text-indigo-700"
+          >
             Create account
           </Link>
         </p>
       </form>
-
-      
     </>
   );
 };
