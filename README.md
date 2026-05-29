@@ -2,7 +2,7 @@
 
 A fast, decoupled real-time messaging platform engineered with the MERN stack and Socket.io. Chatrivo features polymorphic message handling and automated AI workflows, designed to provide a seamless and secure communication experience.
 
-🔴 **LIVE DEMO (Try Guest Mode!):** [Insert Live Link Here]
+🔴 **LIVE DEMO (Try Guest Mode!):** https://chatrivo-app.duckdns.org/
 
 ---
 
