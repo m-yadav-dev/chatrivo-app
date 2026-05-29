@@ -1,50 +1,85 @@
-<h1 align="center">Chatrivo 💬</h1>
-<p align="center">
-  <strong>A complete real-time chat application developed using the MERN stack and Socket.IO with a flexible schema.</strong>
-</p>
+# Chatrivo 💬
 
-<p align="center">
-  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
-  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js" />
-  <img src="https://img.shields.io/badge/Socket.io-010101?style=for-the-badge&logo=socketdotio&logoColor=white" alt="Socket.io" />
-  <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB" />
-</p>
+A fast, decoupled real-time messaging platform engineered with the MERN stack and Socket.io. Chatrivo features polymorphic message handling and automated AI workflows, designed to provide a seamless and secure communication experience.
 
-<h3 align="center">
-  <a href="https://chatrivo-app.duckdns.org">🔴 LIVE DEMO (Try Guest Mode!)</a>
-</h3>
+🔴 **LIVE DEMO (Try Guest Mode!):** [Insert Live Link Here]
+
+---
+
+## 📸 Application Showcase
 
 
-## 🚀 Overview
+[Insert GIF: 1-Click Guest Login]
+*Frictionless entry for recruiters and clients via MongoDB TTL indexing.*
 
-Chatrivo is a real-time messaging platform designed for speed and simplicity. It features a completely decoupled architecture with a React and Vite frontend, as well as a Node.js and Express backend.
+[Insert GIF: Real-Time Audio-to-Text Transcription]
+*Agentic workflow converting voice notes to text in real-time using n8n and Groq LPU.*
 
-**Highlight:** Includes a **"One-Click Guest Login"** system so recruiters and clients can test the app instantly without signing up!
+[Insert Diagram: System Architecture]
+*Visual breakdown of the decoupled frontend, backend proxy, and AI webhook integration.*
+
+---
 
 ## ✨ Key Features
 
-* **⚡ Real-Time Communication:** Instant message delivery and live connection handling powered by Socket.io.
-* **📁 Polymorphic Message Handling:** Seamless processing and sharing of diverse payloads, allowing users to send text, images, audio files, and documents in a single chat thread.
-* **🧠 Optimized State Management:** Lightweight and lightning-fast client-side state handling utilizing Zustand to prevent unnecessary re-renders.
-* **🕵️‍♂️ Frictionless Guest Mode:** "One-Click" anonymous login featuring automated database cleanup (MongoDB TTL index) for instant, hassle-free app testing.
-* **🔐 Secure Auth & Cloud Storage:** JWT-based authentication via HTTP-only cookies, coupled with Cloudinary integration for scalable media asset management.
+* **Agentic AI Audio Transcription:** Voice messages are processed through a secure Node.js proxy to an n8n webhook, utilizing the Groq LPU for lightning-fast speech-to-text conversion.
+* **Real-Time Communication:** Instant message delivery and bi-directional connection handling powered by Socket.io.
+* **Polymorphic Message Handling:** Seamlessly process and render diverse payloads (text, images, and audio buffers) within a single chat thread.
+* **Frictionless Guest Mode:** "One-Click" anonymous login featuring automated database cleanup (MongoDB TTL index) for instant, hassle-free app testing.
+* **Optimized State Management:** Lightweight client-side state handling utilizing Zustand to prevent unnecessary re-renders during active data fetching.
+* **Secure Auth & Cloud Storage:** JWT-based authentication via HTTP-only cookies, coupled with Cloudinary integration for scalable media asset management.
+
+---
 
 ## 🛠️ Tech Stack
 
+**Core MERN Architecture:**
 * **Frontend:** React (Vite), Tailwind CSS, Zustand, React-Router-Dom
-* **Backend:** Node.js, Express.js, Socket.io
+* **Backend:** Node.js, Express.js, Socket.io, Multer, Axios
 * **Database:** MongoDB Atlas, Mongoose
+
+**Integrations & Infrastructure:**
+* **AI & Automation:** n8n (Self-hosted workflows), Groq API (Whisper model)
 * **Storage & Deployment:** Cloudinary (Media), Vercel (Frontend), Azure VM + Nginx (Backend)
 
-## 💻 Quick Start (Run Locally)
+---
 
-If you want to run this project on your local machine, follow these steps:
+## 🚀 Quick Start (Run Locally)
 
+To run this project on your local machine, follow these steps:
 
-<p align="left">
-git clone https://github.com/m-yadav-dev/chatrivo-app.git
-</p>
-
-<p align="left">
+**1. Clone the repository**
+```bash
+git clone [https://github.com/m-yadav-dev/chatrivo-app.git](https://github.com/m-yadav-dev/chatrivo-app.git)
 cd chatrivo-app
-</p>
+
+
+# Install backend dependencies
+cd backend
+npm install
+
+# Install frontend dependencies
+cd ../frontend
+npm install
+
+# Environment Configuration
+
+MONGO_DB_CONN_STR=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+NODE_ENV=development
+PORT=3000
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_SECRET=your_api_secret
+CLIENT_URL=http://localhost:5174
+ARCJET_KEY=your_arcjet_key
+N8N_WEBHOOK_TEST_URL=your_n8n_test_url
+N8N_WEBHOOK_URL=your_n8n_production_url
+
+# Start the Application
+
+# Start the backend server (from the backend directory)
+npm run dev
+
+# Start the frontend client (from the frontend directory)
+npm run dev
