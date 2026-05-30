@@ -25,8 +25,6 @@ A fast, decoupled real-time messaging platform engineered with the MERN stack an
 
 
 
-[Insert Diagram: System Architecture]
-*Visual breakdown of the decoupled frontend, backend proxy, and AI webhook integration.*
 
 ---
 
