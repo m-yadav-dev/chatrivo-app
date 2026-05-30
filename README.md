@@ -17,7 +17,13 @@ A fast, decoupled real-time messaging platform engineered with the MERN stack an
 </div>
 
 <div align="center">
-  <img width="1200" height="675" alt="Real-Time Audio-to-Text Transcription" src="https://github.com/user-attachments/assets/438e17dc-b4c4-4236-b739-a0292d15525d" />
+  
+
+<video src=" https://github.com/user-attachments/assets/95f2ded1-5cd1-45a8-99fe-3f01671aeeaa" controls="controls" width="100%">
+  Your browser does not support the video tag.
+</video>
+
+
   <p><i>Real-Time Audio-to-Text Transcription</i></p>
 </div>
 
