@@ -12,16 +12,15 @@ A fast, decoupled real-time messaging platform engineered with the MERN stack an
 
 
 <div align="center">
-<img width="1200" height="675" alt="Guest Login (1)" src="https://github.com/user-attachments/assets/1c166523-6e01-49b2-a62e-8a351b77d0c5" />
+<img width="950" height="534" alt="Guest Login (2)" src="https://github.com/user-attachments/assets/25f08f0a-b750-414e-b364-41be4db379a8" />
+
   <p><i>1-Click Guest Login</i></p>
 </div>
 
 <div align="center">
   
 
-<video src=" https://github.com/user-attachments/assets/95f2ded1-5cd1-45a8-99fe-3f01671aeeaa" controls="controls" width="100%">
-  Your browser does not support the video tag.
-</video>
+    https://github.com/user-attachments/assets/95f2ded1-5cd1-45a8-99fe-3f01671aeeaa
 
 
   <p><i>Real-Time Audio-to-Text Transcription</i></p>
