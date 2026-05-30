@@ -12,20 +12,16 @@ A fast, decoupled real-time messaging platform engineered with the MERN stack an
 
 
 <div align="center">
-<img width="950" height="534" alt="Guest Login (2)" src="https://github.com/user-attachments/assets/25f08f0a-b750-414e-b364-41be4db379a8" />
-
-  <p><i>1-Click Guest Login</i></p>
+  <img src="https://github.com/user-attachments/assets/25f08f0a-b750-414e-b364-41be4db379a8" alt="1-Click Guest Login Showcase" width="800" />
+  <p><i><strong>1-Click Guest Login:</strong> Frictionless entry for quick recruiter reviews via MongoDB TTL indexing.</i></p>
 </div>
+
+<br />
 
 <div align="center">
-  
-
-    https://github.com/user-attachments/assets/95f2ded1-5cd1-45a8-99fe-3f01671aeeaa
-
-
-  <p><i>Real-Time Audio-to-Text Transcription</i></p>
+  <video src="https://github.com/user-attachments/assets/95f2ded1-5cd1-45a8-99fe-3f01671aeeaa" width="800" controls autoplay loop muted></video>
+  <p><i><strong>Real-Time Audio-to-Text Transcription:</strong> Agentic workflow converting voice notes to text using n8n and Groq LPU.</i></p>
 </div>
-
 
 
 
