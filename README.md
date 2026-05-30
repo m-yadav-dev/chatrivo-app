@@ -25,9 +25,6 @@ A fast, decoupled real-time messaging platform engineered with the MERN stack an
 
 
 
-[Insert GIF: Real-Time Audio-to-Text Transcription]
-*Agentic workflow converting voice notes to text in real-time using n8n and Groq LPU.*
-
 [Insert Diagram: System Architecture]
 *Visual breakdown of the decoupled frontend, backend proxy, and AI webhook integration.*
 
