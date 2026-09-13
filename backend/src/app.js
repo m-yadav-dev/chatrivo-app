@@ -10,7 +10,7 @@ import { audioToTextRouter } from "./routes/audio-to-text.routes.js";
 const allowedOrigins = [
   ENV_VARS.CLIENT_URL,
   "http://localhost:5173",
-  "http://localhost:5174",
+  "chatrivo-app.duckdns.org"
 ].filter(Boolean);
 
 // Middlewares
