@@ -10,6 +10,8 @@ const socketAllowedOrigins = [
   ENV_VARS.CLIENT_URL,
   "http://localhost:5173",
   "http://localhost:5174",
+  "https://chatrivo-app.duckdns.org",
+  "http://chatrivo-app.duckdns.org"
 ].filter(Boolean);
 
 
