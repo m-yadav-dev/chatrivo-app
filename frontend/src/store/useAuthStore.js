@@ -3,12 +3,9 @@ import { io } from "socket.io-client";
 import { toast } from "sonner";
 import { create } from "zustand";
 
-// const BASE_URL =
-//   import.meta.env.NODE_ENV === "development" ? "http://localhost:3000" : "/";
-
 const BASE_URL =
   import.meta.env.VITE_SOCKET_URL ||
-  (import.meta.env.VITE_BACKEND_URL || "http://localhost:3000").replace(
+  (import.meta.env.VITE_BACKEND_URL || "/").replace(
     /\/api\/?$/,
     "",
   );
