@@ -43,7 +43,7 @@ A fast, decoupled real-time messaging platform engineered with the MERN stack an
 
 **Core MERN Architecture:**
 * **Frontend:** React (Vite), Tailwind CSS, Zustand, React-Router-Dom
-* **Backend:** Node.js, Express.js, Socket.io, Multer, Axios, n8n
+* **Backend:** Node.js, Express.js, Socket.io, Multer, Axios
 * **Database:** MongoDB Atlas, Mongoose
 
 **Integrations & Infrastructure:**
