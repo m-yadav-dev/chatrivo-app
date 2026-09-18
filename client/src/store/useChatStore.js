@@ -2,6 +2,7 @@ import { axiosInstance } from "@/lib/axios";
 import { create } from "zustand";
 import { useAuthStore } from "./useAuthStore";
 import { toast } from "sonner";
+import { sendMessageApi, transcribeAudioMessage, transcribeAudioMessageApi } from "@/services/api.chat";
 
 export const useChatStore = create((set, get) => ({
   isMessagesLoading: false,
@@ -77,28 +78,7 @@ export const useChatStore = create((set, get) => ({
     set({ isMessageSending: true });
 
     try {
-      const formData = new FormData();
-
-      if (messageData.text) {
-        formData.append("text", messageData.text);
-      }
-      if (messageData.messageType) {
-        formData.append("messageType", messageData.messageType);
-      }
-      if (messageData.media) {
-        formData.append("media", messageData.media);
-      }
-
-      const response = await axiosInstance.post(
-        `messages/send/${receiverId}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        },
-      );
-      const realMessage = response.data;
+      const realMessage = await sendMessageApi(receiverId, messageData);
       set((state) => ({
         messages: state.messages.map((msg) =>
           msg._id === tempId ? realMessage : msg,
@@ -127,29 +107,14 @@ export const useChatStore = create((set, get) => ({
     //  Step 1: Loading state for audio transcription
     set({ isAudioTranscribing: true });
     try {
-      // Step 2: Create FormData and append the audio file
-      const formData = new FormData();
-      formData.append("audio", audioFile, "voice_message.webm"); // You can use the original file name or a default one
 
-      // Step 3: Send POST request to the backend API to transcribe audio
-
-      const response = await axiosInstance.post(
-        `messages/audio-to-text/${receiverId}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        },
-      );
-
-      console.log("Audio transcription successful, response:", response.data);
-
+      const responseData = await transcribeAudioMessageApi(audioFile, receiverId);
       // push the transcribed message to messages state to show in UI immediately after transcription
 
       set((state) => ({
-        messages: [...state.messages, response.data.data],
+        messages: [...state.messages, responseData],
       }));
+
     } catch (error) {
       console.error("Error transcribing audio message:", error);
       console.log("Error details:", error.response?.data);
