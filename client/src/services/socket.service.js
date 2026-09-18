@@ -30,3 +30,14 @@ export const disconnectSocket = () => {
 
 // Use this function to get the current socket instance
 export const getSocket = () => socket;
+
+
+
+export const subscribeToNewMessages = async () => {
+  
+}
+
+
+export const unSubscribeToNewMessages = async () => {
+
+}
