@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import ChatBubble from "./ChatBubble";
 import { useChatStore } from "@/store/useChatStore";
 import { useAuthStore } from "@/store/useAuthStore";
-import MessageSkeleton from "../skeletons/MessageSkeleton";
+import MessageSkeleton from "@/components/skeletons/MessageSkeleton";
 
 const ConversationMessages = () => {
   const { authUser } = useAuthStore();

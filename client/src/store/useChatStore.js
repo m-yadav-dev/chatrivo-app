@@ -2,20 +2,19 @@ import { axiosInstance } from "@/lib/axios";
 import { create } from "zustand";
 import { useAuthStore } from "./useAuthStore";
 import { toast } from "sonner";
-import { sendMessageApi, transcribeAudioMessage, transcribeAudioMessageApi } from "@/services/api.chat";
+import { sendMessageApi, transcribeAudioMessageApi } from "@/services/api.chat";
+import { socketService } from "@/services/socket.service";
+import { useChatUIStore } from "./useChatUIStore";
 
 export const useChatStore = create((set, get) => ({
   isMessagesLoading: false,
   isMessageSending: false,
   messages: [],
-  selectedUser: null,
   isMediaFileUploading: false,
   users: [],
   isUsersLoading: false,
 
   isAudioTranscribing: false,
-
-  setSelectedUser: (user) => set({ selectedUser: user }),
 
   // Fetch users for chat
   getUsers: async () => {
@@ -51,7 +50,8 @@ export const useChatStore = create((set, get) => ({
 
   // /send/:id API endpoint for sending messages is handled in the backend, so we don't need to implement it here in the store. Instead, we can call that API directly from the component when sending a message.
   sendMessage: async (messageData) => {
-    const { selectedUser, messages } = get();
+    const { messages } = get();
+    const { selectedUser } = useChatUIStore.getState();
     const { authUser } = useAuthStore.getState();
 
     const receiverId = selectedUser?._id;
@@ -69,8 +69,8 @@ export const useChatStore = create((set, get) => ({
       messageType: messageData.media
         ? messageData.messageType || "image"
         : "text",
-      media: messageData.media
-        ? { url: URL.createObjectURL(messageData.media) }
+      media: messageData.mediaPreviewUrl
+        ? { url: messageData.mediaPreviewUrl }
         : null,
       createdAt: new Date().toISOString(),
     };
@@ -129,26 +129,22 @@ export const useChatStore = create((set, get) => ({
 
   // connect to socket server and listen for typing events
 
-  connectToSocketMessages: () => {
-    const { selectedUser } = get();
+  setupMessageListener: () => {
+    const { selectedUser } = useChatUIStore.getState();
     const socket = useAuthStore.getState().socket;
     if (!socket || !selectedUser) return;
 
-    socket.on("newMessage", (message) => {
-      const isMessageForCurrentChat =
-        message.senderId === selectedUser._id ||
-        message.receiverId === selectedUser._id;
+    const cleanupListner = socketService.subscribeToNewMessages((newMessage) => {
+      const currentSelectedUser = useChatUIStore.getState().selectedUser
+      const isForCurrentUser = newMessage.senderId == currentSelectedUser._id || newMessage.receiverId === currentSelectedUser._id
 
-      if (!isMessageForCurrentChat) return;
-
-      const currentMessages = get().messages;
-      set({ messages: [...currentMessages, message] });
+      if (isForCurrentUser) {
+        set((state) => ({
+          messages: [...state.messages, newMessage]
+        }))
+      }
     });
-  },
 
-  disconnectFromSocketMessages: () => {
-    const socket = useAuthStore.getState().socket;
-    if (!socket) return;
-    socket.off("newMessage");
-  },
+    return cleanupListner;
+  }
 }));

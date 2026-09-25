@@ -1,4 +1,4 @@
-import LoginInput from "@/components/layout/LoginInput";
+import LoginInput from "@/features/auth/LoginInput";
 
 const LogInPage = () => {
   return (

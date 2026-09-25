@@ -1,7 +1,7 @@
 import { useAuthStore } from "@/store/useAuthStore";
 import { LogOutIcon } from "lucide-react";
 import React from "react";
-import Loader from "../loader/Loader";
+import Loader from "../common/Loader";
 import { useLocation } from "react-router-dom";
 import HeaderDropdown from "./HeaderDropdown";
 import { motion as Motion } from "motion/react";

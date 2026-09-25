@@ -1,11 +1,12 @@
-import ChatContainer from "@/components/chat/ChatContainer";
+import ChatContainer from "@/features/chat/components/ChatContainer/ChatContainer";
 import Header from "@/components/layout/Header";
-import NoChatSelected from "@/components/chat/NoChatSelected";
+import NoChatSelected from "@/features/chat/components/NoChatSelected/NoChatSelected";
 import Sidebar from "@/components/layout/Sidebar";
 import { useChatStore } from "@/store/useChatStore";
+import { useChatUIStore } from "@/store/useChatUIStore";
 
 const HomePage = () => {
-  const { selectedUser } = useChatStore();
+  const { selectedUser } = useChatUIStore();
 
   return (
     <div className="h-[100dvh] overflow-hidden bg-[radial-gradient(circle_at_top_left,#f8fafc,#f4f4f5_45%,#e4e4e7)]">

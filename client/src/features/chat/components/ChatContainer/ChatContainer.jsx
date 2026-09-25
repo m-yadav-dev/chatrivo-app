@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import ChatHeader from "./ChatHeader";
-import ConversationMessages from "./ConversationMessages";
-import MessageInput from "./MessageInput";
-import ChatInputMessageDropdown from "./ChatInputMessageDropdown";
+import ChatHeader from "../ChatHeader/ChatHeader";
+import ConversationMessages from "../ConversationMessages/ConversationMessages";
+import MessageInput from "../MessageInput/MessageInput";
+import ChatInputMessageDropdown from "../MessageInput/ChatInputMessageDropdown";
 import { useChatStore } from "@/store/useChatStore";
-import MediaPreview from "./MediaPreview";
+import MediaPreview from "../MessageInput/MediaPreview";
 
 const chatDropdownOptions = [
   { id: 1, label: "Attach Image" },
