@@ -1,7 +1,7 @@
 import { useAuthStore } from "@/store/useAuthStore";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import { Button } from "../ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Eye, EyeOff, LoaderCircle, LogIn, Lock, Mail, User, LoaderCircleIcon } from "lucide-react";
 import { Link } from "react-router-dom";

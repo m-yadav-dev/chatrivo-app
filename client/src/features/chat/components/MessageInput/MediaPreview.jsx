@@ -1,11 +1,11 @@
 import { Send, X } from "lucide-react";
 import React from "react";
-import { Input } from "../ui/input";
-import ImageMediaType from "./MessageTypes/ImageMediaType";
-import AudioMediaType from "./MessageTypes/AudioMediaType";
-import DocumentMediaType from "./MessageTypes/DocumentMediaType";
+import { Input } from "@/components/ui/input";
+import ImageMediaType from "../ConversationMessages/types/ImageMediaType";
+import AudioMediaType from "../ConversationMessages/types/AudioMediaType";
+import DocumentMediaType from "../ConversationMessages/types/DocumentMediaType";
 import { useChatStore } from "@/store/useChatStore";
-import Loader from "../loader/Loader";
+import Loader from "@/components/common/Loader";
 
 const MediaPreview = ({
   previewUrl,

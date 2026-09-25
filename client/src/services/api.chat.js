@@ -35,6 +35,9 @@ export const sendMessageApi = async (receiverId, messageData) => {
     if (messageData.media) {
         formData.append("media", messageData.media)
     }
+    // Note: messageData.mediaPreviewUrl is a UI-only blob URL for optimistic rendering
+    // and is intentionally never appended to FormData.
+
     const response = await axiosInstance.post(`messages/send/${receiverId}`, formData)
 
     return response.data

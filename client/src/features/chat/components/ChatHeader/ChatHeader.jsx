@@ -1,5 +1,5 @@
 import React from "react";
-import UsersAvatar from "../common/userAvatar";
+import UsersAvatar from "@/components/common/userAvatar";
 import { useChatStore } from "@/store/useChatStore";
 import { ArrowLeft, EllipsisVerticalIcon, Phone, Search } from "lucide-react";
 import { useAuthStore } from "@/store/useAuthStore";

@@ -1,9 +1,9 @@
 import { format } from "date-fns";
 import React from "react";
-import UsersAvatar from "../common/userAvatar";
-import ImageMediaType from "./MessageTypes/ImageMediaType";
-import DocumentMediaType from "./MessageTypes/DocumentMediaType";
-import AudioMediaType from "./MessageTypes/AudioMediaType";
+import UsersAvatar from "@/components/common/userAvatar";
+import ImageMediaType from "../ConversationMessages/types/ImageMediaType";
+import DocumentMediaType from "../ConversationMessages/types/DocumentMediaType";
+import AudioMediaType from "../ConversationMessages/types/AudioMediaType";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useChatStore } from "@/store/useChatStore";
 

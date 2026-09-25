@@ -6,7 +6,7 @@ import ProfilePage from "./pages/ProfilePage";
 import "./App.css";
 import { useAuthStore } from "./store/useAuthStore";
 import { useEffect } from "react";
-import Loader from "./components/loader/Loader";
+import Loader from "./components/common/Loader";
 
 function App() {
   const { authUser, isCheckingAuth, checkAuth } = useAuthStore();

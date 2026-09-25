@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { useAuthStore } from "@/store/useAuthStore";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { Mail, Lock, UserRoundPlus } from "lucide-react";
 
