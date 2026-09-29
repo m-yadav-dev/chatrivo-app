@@ -3,16 +3,16 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClient } from "./lib/queryClient.js";
+import Providers from "./app/Providers.jsx";
 
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
+    <Providers>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </QueryClientProvider>
+
+    </Providers>
   </StrictMode>,
 );

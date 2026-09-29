@@ -1,4 +1,4 @@
-import SignIn from "@/features/auth/SignIn";
+import SignIn from "@/features/auth/components/SignIn";
 import { Sparkles } from "lucide-react";
 
 const SignUpPage = () => {

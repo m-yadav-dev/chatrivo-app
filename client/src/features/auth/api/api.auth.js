@@ -25,7 +25,3 @@ export const logout = async () => {
   return response.data;
 };
 
-
-export const connectSocket = async () => {
-    
-}
