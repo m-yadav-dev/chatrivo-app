@@ -2,11 +2,6 @@ import { axiosInstance } from "@/lib/axios"
 
 
 
-
-
-
-
-
 // Get All Users
 export const getUsers = async () => {
     const response = await axiosInstance.get("messages/users")

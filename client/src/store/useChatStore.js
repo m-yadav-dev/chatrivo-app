@@ -2,7 +2,7 @@ import { axiosInstance } from "@/lib/axios";
 import { create } from "zustand";
 import { useAuthStore } from "./useAuthStore";
 import { toast } from "sonner";
-import { sendMessageApi, transcribeAudioMessageApi } from "@/services/api.chat";
+import { sendMessageApi, transcribeAudioMessageApi } from "@/features/chat/api/api.chat.js";
 import { socketService } from "@/services/socket.service";
 import { useChatUIStore } from "./useChatUIStore";
 
