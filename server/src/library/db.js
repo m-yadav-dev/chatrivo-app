@@ -6,6 +6,11 @@ const connectDb = async () => {
     if (!uri) {
       throw new Error("MONGODB_URI is missing in .env file");
     }
+
+    console.log(
+      `MongoDB connectio string loaded: ${Boolean(ENV_VARS.MONGO_DB_CONN_STR)}`,
+    );
+
     const dbConnection = await mongoose.connect(uri);
     console.log(`✅ MongoDB Connected: ${dbConnection.connection.host}`);
   } catch (error) {
